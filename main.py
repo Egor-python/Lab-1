@@ -1,47 +1,30 @@
-from typing import Union
-
-def is_caps(word: str) -> Union[str, bool]:
-    # Если слово из 1 буквы
-    def one_letter_check() -> bool:
-        return len(word) == 1
-
-    def first_letter_check() -> bool:
-        return word[0] == word[0].lower()
-
-    def other_letters_check() -> bool:
-        return word[1:] == word[1:].upper()
-
-    def all_word_check() -> bool:
-        return word == word.upper()
-
-    if one_letter_check():
-        return "ONE"
-    elif all_word_check():
-        return 'ALL'
-    elif all([first_letter_check(), other_letters_check()]):
-        return 'PART'
-
-    return False
+from random import randint
 
 
-def corrector(word: str, word_type: str) -> str:
-    if word_type == 'ONE':
-        if word == word.lower():
-            return word.upper()
-        else:
-            return word.lower()
-    elif word_type == 'ALL':
-        return word.lower()
-    elif word_type == 'PART':
-        return word[0].upper() + word[1:].lower()
-    return 'Something wrong'
+def bin_to_int(binary_list: list[str]) -> list[int]:
+    return [int(i, base=2) for i in binary_list]
 
 
-def main(word):
-    word_type = is_caps(word)
-    if not word_type:
-        print(word)
-    else:
-        print(corrector(word, word_type))
+def int_to_bin(int_list: list[int]) -> list[str]:
+    return [bin(i) for i in int_list]
 
-main(input())
+def bubble_sorting(binary_list: list[str]) -> list[str]:
+    normal_list: list[int] = bin_to_int(binary_list)
+    list_len: int = len(normal_list)
+    for step in range(list_len):
+        for i in range(list_len - step - 1):
+            current_el: int = normal_list[i]
+            next_el: int = normal_list[i+1]
+            if current_el > next_el:
+                normal_list[i] = next_el
+                normal_list[i+1] = current_el
+
+    res: list[str] = int_to_bin(normal_list)
+    return res
+
+
+binary_list: list[str] = [bin(randint(0,1000)) for i in range(20)]
+print(bin_to_int(binary_list))
+
+res = bubble_sorting(binary_list)
+print(bin_to_int(res))
