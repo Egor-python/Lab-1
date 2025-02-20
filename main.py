@@ -8,6 +8,7 @@ def bin_to_int(binary_list: list[str]) -> list[int]:
 def int_to_bin(int_list: list[int]) -> list[str]:
     return [bin(i) for i in int_list]
 
+
 def bubble_sorting(binary_list: list[str]) -> list[str]:
     normal_list: list[int] = bin_to_int(binary_list)
     list_len: int = len(normal_list)
@@ -23,8 +24,9 @@ def bubble_sorting(binary_list: list[str]) -> list[str]:
     return res
 
 
-binary_list: list[str] = [bin(randint(0,1000)) for i in range(20)]
-print(bin_to_int(binary_list))
+if __name__ == '__main__':
+    binary_list: list[str] = [bin(randint(0,1000)) for i in range(20)]
+    print(bin_to_int(binary_list))
 
-res = bubble_sorting(binary_list)
-print(bin_to_int(res))
+    res: list = bubble_sorting(binary_list)
+    print(bin_to_int(res))
